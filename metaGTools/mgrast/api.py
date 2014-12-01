@@ -29,6 +29,12 @@ def mgrast_request(method, item_id=None, params=None, auth_key=None, debug=False
     params = '?' + '&'.join(['='.join(item) if not isinstance(item[1],list) else join_mult(item) for item in params.items()]) if params else ''
     url = 'http://api.metagenomics.anl.gov/1/{method}{ID}{params}'
     fURL = url.format(method=method, ID=item_id, params=params)
+
+    if debug:
+        print fURL
+        return
+
+    # submit request
     resp = requests.get(fURL, headers=auth)
 
     if resp.headers['content-type'] == 'application/json':
