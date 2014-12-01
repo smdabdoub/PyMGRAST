@@ -24,8 +24,10 @@ def mgrast_request(method, item_id, params=None, auth_key=None):
     Makes an MG-RAST API call
     """
     auth = {'auth': auth_key} if auth_key else {}
-    params = '&'.join(['='.join(item) for item in params.items()]) if params else ''
-    url = 'http://api.metagenomics.anl.gov/1/{method}/{ID}?{params}'
+    item_id = '' if item_id is None else '/'+item_id
+    join_mult = lambda item: '&'.join(['{}={}'.format(item[0],entry) for entry in item[1]])
+    params = '?' + '&'.join(['='.join(item) if not isinstance(item[1],list) else join_mult(item) for item in params.items()]) if params else ''
+    url = 'http://api.metagenomics.anl.gov/1/{method}{ID}{params}'
     fURL = url.format(method=method, ID=item_id, params=params)
     resp = requests.get(fURL, headers=auth)
 
