@@ -19,7 +19,7 @@ class MGRASTAuthenticationException(MGRASTException):
     """
     pass
 
-def mgrast_request(method, item_id, params=None, auth_key=None):
+def mgrast_request(method, item_id=None, params=None, auth_key=None, debug=False):
     """
     Makes an MG-RAST API call
     """
