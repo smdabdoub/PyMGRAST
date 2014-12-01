@@ -1,0 +1,11 @@
+# Python files
+*.py[cod]
+
+# Sequence-related
+*.fasta
+*.biom
+
+# Miscellaneous
+.project
+.pydevproject
+.DS_Store
