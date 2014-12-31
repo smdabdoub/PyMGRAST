@@ -1,13 +1,16 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 """
-Gather numeric information about the processed sequence data in an
-MG-RAST project.
+Gather numeric information about the processed sequence
+data in an MG-RAST project.
 """
-from metaGTools.mgrast.api import mgrast_request, MGRASTException
+# standard library imports
 import argparse
 from collections import namedtuple
 import json
+# local imports
+from mgr_api.api import mgrast_request, MGRASTException
+
 
 STAT_FIELDS = ['raw_seq_count', 'failed_qc', 'passed_qc',
                'protein_coding_regions', 'predicted_prot_features',
