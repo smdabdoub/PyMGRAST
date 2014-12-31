@@ -140,16 +140,5 @@ def download_metagenome_data(metagenomes, func, database='KEGG', dtype='function
     return results
 
 
-def m5nr_ontology_annotations(database='KO', **params):
-    """
-    Download a functional hierarchy for the specified database in m5nr.
-    http://api.metagenomics.anl.gov/api.html#m5nr
-    """
-    if params is None:
-        params = {}
-    params.update({'source': database})
-    r = mgrast_request('m5nr/ontology', '', params=params)
-    return {entry['accession']: entry for entry in json.loads(r.text)['data']}
-
     
 
