@@ -1,9 +1,10 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 """
-Turn a list of subsystem abundance into a table with the first column
-representing subsystems, subsequent columns being metagenome IDs, and table data
-representing abundance for each subsystem and metagenome ID.
+Turn a list of subsystem abundance into a table with the
+first column representing subsystems, subsequent columns
+being metagenome IDs, and table data representing abundance
+for each subsystem and metagenome ID.
 """
 import argparse
 from collections import defaultdict
