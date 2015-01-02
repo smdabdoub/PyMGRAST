@@ -1,12 +1,11 @@
 import json
 import unittest
 
-from metaGTools.mgrast.api import (MGRASTException,
-                                  MGRASTAuthenticationException,
-                                  mgrast_request, id_check)
-from metaGTools.mgrast.project_stats import metagenome_project_stats
+from mgr_api.api import (MGRASTException, MGRASTAuthenticationException,
+                         mgrast_request, id_check)
+
  
-class Test_mgrast_api(unittest.TestCase):
+class Test_api(unittest.TestCase):
  
     def setUp(self):
         pass
@@ -29,12 +28,6 @@ class Test_mgrast_api(unittest.TestCase):
         
     def test_id_check_present(self):
         self.assertEqual(id_check('mgp','mgp1234'), 'mgp1234')
-
-
-class Test_mgrast_project_stats(unittest.TestCase):            
-    def test_no_project(self):
-        mg_stats = metagenome_project_stats('x', '')
-        self.assertEquals( mg_stats, None)
  
  
 if __name__ == '__main__':
