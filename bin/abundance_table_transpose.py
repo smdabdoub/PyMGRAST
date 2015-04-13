@@ -49,7 +49,7 @@ def main():
 
     # collect abundance per functional level and metagenome ID
     for row in mg_subsys:
-        subsys = '@'.join([entry.strip('"') for entry in row[1:max_lvl]])
+        subsys = '@@'.join([entry.strip('"') for entry in row[1:max_lvl]])
         if header[5] == 'id' and args.subsystem_level == 4:
             subsys_to_KO[subsys] = row[5]
         mg_abundance[row[0]][subsys] += int(row[abd_col])
@@ -58,15 +58,18 @@ def main():
     # write out the data in the transposed table format
     with open(args.output_fp, 'w') as outF:
         lvl_str = ['{lvl1}', '{lvl2}', '{lvl3}', '{func}']
-        outF.write(''.join(['\t' for _ in range(args.subsystem_level)])+'\t'.join(mg_abundance.keys())+'\n')
+        # write header
+        outF.write(''.join(['Level {}\t'.format(lvl+1) for lvl in range(args.subsystem_level)]) + 
+                   'ID\t' + '\t'.join(mg_abundance.keys()) + '\n')
+
         out_line = '\t'.join([l for l in lvl_str[:args.subsystem_level]])+'\t{abd}\n'
         for subsys in subsystems:
             abd = []
             for mgid in mg_abundance:
                 abd.append(0 if subsys not in mg_abundance[mgid] else mg_abundance[mgid][subsys])
-            subsys_lvls = subsys.split('@')
+            subsys_lvls = subsys.split('@@')
             if header[5] == 'id' and args.subsystem_level == 4:
-                subsys_lvls[3] += ' (' + subsys_to_KO[subsys] + ')'
+                subsys_lvls[3] += '\t' + subsys_to_KO[subsys]
             out_args = {k:l for k, l in zip(['lvl1', 'lvl2', 'lvl3', 'func'][:args.subsystem_level], subsys_lvls)}
             out_args['abd'] = '\t'.join(map(str, abd))
             outF.write(out_line.format(**out_args))
