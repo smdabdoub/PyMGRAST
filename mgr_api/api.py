@@ -37,7 +37,7 @@ def mgrast_request(method, item_id=None, params=None, auth_key=None, debug=False
     # submit request
     resp = requests.get(fURL, headers=auth)
 
-    if resp.headers['content-type'] == 'application/json':
+    if resp.headers['content-type'].startswith('application/json'):
         text = json.loads(resp.text)
         if 'ERROR' in text:
             if ('insufficient permissions' in text['ERROR'] or
