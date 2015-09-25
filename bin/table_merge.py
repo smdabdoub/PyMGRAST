@@ -12,7 +12,7 @@ import csv
 
 def add_data(mg_func, table, key_cols):
     for entry in table:
-        key = ";;".join(["{}" for _ in range(len(key_cols))]).format(*[entry[label] for label in key_cols])
+        key = "@@".join(["{}" for _ in range(len(key_cols))]).format(*[entry[label] for label in key_cols])
         for ekey in entry:
             if ekey not in key_cols:
                 mg_func[key][ekey] = entry[ekey]
@@ -23,7 +23,7 @@ def write_table(mg_func, mgids, key_cols, out_fp):
         out_f.write('\t'.join(key_cols) + '\t')
         out_f.write('\t'.join(mgids) + '\n')
         for func in sorted(mg_func.keys()):
-            out_f.write('\t'.join(func.split(';;')) + '\t')
+            out_f.write('\t'.join(func.split('@@')) + '\t')
             out_f.write('\t'.join([mg_func[func][mgid] if mgid in mg_func[func] else '0' for mgid in mgids]) + '\n')
 
 
