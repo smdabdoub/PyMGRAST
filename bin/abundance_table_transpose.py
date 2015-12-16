@@ -58,12 +58,17 @@ def main():
     # write out the data in the transposed table format
     with open(args.output_fp, 'w') as outF:
         lvl_str = ['{lvl1}', '{lvl2}', '{lvl3}', '{func}']
+        
+        id_field = ''
+        if header[5] == 'id' and args.subsystem_level == 4:
+            id_field = 'ID\t'
+
         # write header
         outF.write(''.join(['Level {}\t'.format(lvl+1) for lvl in range(args.subsystem_level)]) + 
-                   'ID\t' + '\t'.join(mg_abundance.keys()) + '\n')
+                   id_field + '\t'.join(mg_abundance.keys()) + '\n')
 
         out_line = '\t'.join([l for l in lvl_str[:args.subsystem_level]])+'\t{abd}\n'
-        for subsys in subsystems:
+        for subsys in sorted(subsystems):
             abd = []
             for mgid in mg_abundance:
                 abd.append(0 if subsys not in mg_abundance[mgid] else mg_abundance[mgid][subsys])
