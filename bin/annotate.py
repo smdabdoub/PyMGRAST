@@ -41,12 +41,12 @@ def main():
 
     # create output file path
     if not args.output_fp:
-        deseq_fp_split = osp.splitext(args.deseq_results_fp)
+        deseq_fp_split = osp.splitext(args.annotate_fp)
         out_fp = deseq_fp_split[0] + "_ann.txt"
 
 
     # parse the file to be annotated
-    with open(args.deseq_results_fp, 'rU') as deseq_f:
+    with open(args.annotate_fp, 'rU') as deseq_f:
         ann_DR = csv.DictReader(deseq_f, delimiter=',')
         ann_id_column = ann_DR.fieldnames[0]
         ann_res = [line for line in ann_DR]
