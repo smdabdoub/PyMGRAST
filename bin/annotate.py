@@ -43,6 +43,8 @@ def main():
     if not args.output_fp:
         deseq_fp_split = osp.splitext(args.annotate_fp)
         out_fp = deseq_fp_split[0] + "_ann.txt"
+    else:
+        out_fp = args.output_fp
 
 
     # parse the file to be annotated
