@@ -104,18 +104,19 @@ def main():
 
     for mg_id in metagenomes:
         sinfo = stage_info(args.stage_id, mg_id, args.auth_key)
-        sdata = sinfo['data'][0]
+        sdata = sinfo['data']
         types = []
 
         if args.substage:
-            for substage in sinfo['data']:
-                types.append(substage['data_type'])
-                if substage['data_type'] == args.substage:
+            for substage in sdata:
+                ss_name = substage['stage_name'].split('.')[-1]
+                types.append(ss_name)
+                if ss_name == args.substage:
                     sdata = substage
                     break
             else:
                 print("Substage '{}' not found".format(args.substage))
-                print("Available substages for stage {}:".format(args.stage_id))
+                print("Available substages {}:".format(args.stage_id))
                 for ss in types:
                     print("  {}".format(ss))
                 sys.exit(1)
