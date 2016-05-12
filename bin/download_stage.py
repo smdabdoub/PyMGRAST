@@ -12,6 +12,7 @@ import argparse
 from io import StringIO
 import os, os.path as osp
 import sys
+import time, datetime
 # local imports
 from mgr_api import api as mgapi
 
@@ -19,6 +20,9 @@ from mgr_api import api as mgapi
 def create_dir(path):
     if not os.path.isdir(path):
         os.makedirs(path)
+
+def duration(start, end):
+    return str(datetime.timedelta(seconds=int(end - start)))
 
 
 def parse_metagenome_file(mg_fp):
@@ -130,11 +134,17 @@ def main():
         file_name = sdata['file_name']
 
         if args.verbose:
-            print('\tDownloading file: {}'.format(file_name), end='')
+            print('\tDownloading file: {}...'.format(file_name), end='')
             sys.stdout.flush()
+
+        start = time.time()
         stage = mgapi.mgrast_request('download', mg_id,
                                      {'file': file_id},
                                      auth_key=args.auth_key)
+        end = time.time()
+
+        if args.verbose:
+            print("completed in: {}".format(duration(start, end)))
         
         out_fp = osp.join(args.out_dir, file_name)
         with open(out_fp, 'w') as outf:
