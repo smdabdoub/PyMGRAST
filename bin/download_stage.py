@@ -95,8 +95,13 @@ def main():
         metagenomes.extend(parse_metagenome_file(args.metagenome_file))
         
     if args.verbose:
-        msg = 'Processing requested for {} metagenome(s) found in: {}'
-        print(msg.format(len(metagenomes), args.metagenome_file))
+        if args.metagenome_file is not None:
+            msg = "Downloading stage {} data for {} metagenome(s) found in: {}"
+            print(msg.format(args.stage_id, len(metagenomes), 
+                  args.metagenome_file))
+        else:
+            msg = "Downloading stage {} for metagenome {}"
+            print(msg.format(args.stage_id, args.metagenome_id))
 
     # MG-RAST stage.file ids for downloading
     #derep_passed = '150'
@@ -136,7 +141,7 @@ def main():
             outf.write(StringIO(stage.text).getvalue())
 
         if args.verbose:
-            print('\n\tData written to: ' + out_fp)
+            print('\tData written to: ' + out_fp)
 
 
 if __name__ == '__main__':
