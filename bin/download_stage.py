@@ -141,7 +141,7 @@ def main():
         if (osp.isfile(file_name) and os.stat(file_name).st_size == sdata['file_size'] 
               and not args.force):
             if args.verbose:
-                print("\tdata previously downloaded, skipping.")
+                print("\t{}: data previously downloaded, skipping.".format(mg_id))
             continue
 
         if args.verbose:
