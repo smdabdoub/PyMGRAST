@@ -5,7 +5,7 @@ Extract the set of sequences that were filtered
 out after the MG-RAST screening against the human
 genome step.
 """
-from __future__ import print_function
+from __future__ import absolute_import, division, print_function
 
 # standard library imports
 import argparse

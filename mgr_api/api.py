@@ -3,6 +3,8 @@ This module represents a Python interface to the MG-RAST API.
 Specifically, this module contains methods that directly call exposed methods
 provided by the API. Value-added methods are elsewhere.
 """
+from __future__ import absolute_import, division, print_function
+
 # standard library imports
 import json
 # third party imports
@@ -33,7 +35,7 @@ def mgrast_request(method, item_id=None, params=None, auth_key=None, debug=False
     fURL = url.format(method=method, ID=item_id, params=params)
 
     if debug:
-        print fURL
+        print(fURL)
         return
 
     # submit request
