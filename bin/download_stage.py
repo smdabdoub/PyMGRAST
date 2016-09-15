@@ -72,6 +72,10 @@ def handle_program_options():
                               the current directory). One FASTA-format file\
                               will be created for each specified metagenome\
                               and saved in this directory.")
+    parser.add_argument('--force', action='store_true', 
+                        help="Any metagenomes to be downloaded that already\
+                        exist will be re-downloaded. If --force is not\
+                        specified (default), such files will be skipped.")
     parser.add_argument('-v', '--verbose', action='store_true')
 
     return parser.parse_args()
@@ -132,6 +136,13 @@ def main():
         
         file_id = sdata['file_id']
         file_name = sdata['file_name']
+
+        # skip download if file exists, unless --force specified
+        if (osp.isfile(file_name) and os.stat(file_name).st_size == sdata['file_size'] 
+              and not args.force):
+            if args.verbose:
+                print("\tdata previously downloaded, skipping.")
+            continue
 
         if args.verbose:
             print('\tDownloading file: {}...'.format(file_name), end='')
