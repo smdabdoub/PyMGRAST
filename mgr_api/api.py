@@ -3,8 +3,10 @@ This module represents a Python interface to the MG-RAST API.
 Specifically, this module contains methods that directly call exposed methods
 provided by the API. Value-added methods are elsewhere.
 """
-import requests
+# standard library imports
 import json
+# third party imports
+import requests
 
 class MGRASTException(Exception):
     """
